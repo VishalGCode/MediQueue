@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-dark-950 text-white font-sans overflow-x-hidden;
+    cursor: none;
+  }
+
+  ::selection {
+    @apply bg-primary-500/30 text-white;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-950;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-500;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+  }
+
+  .glass-strong {
+    @apply bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5),
+                 0 0 40px rgba(6, 182, 212, 0.3),
+                 0 0 80px rgba(6, 182, 212, 0.1);
+  }
+
+  .glow-box {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.15),
+                0 0 40px rgba(6, 182, 212, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glow-border {
+    position: relative;
+  }
+
+  .glow-border::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, 
+      rgba(6, 182, 212, 0.4), 
+      transparent 40%, 
+      transparent 60%, 
+      rgba(6, 182, 212, 0.4));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .glow-border:hover::after {
+    opacity: 1;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-300 via-primary-400 to-cyan-300 bg-clip-text text-transparent;
+  }
+
+  .neon-outline {
+    -webkit-text-stroke: 1px rgba(6, 182, 212, 0.6);
+    color: transparent;
+  }
+
+  .btn-primary {
+    @apply relative px-8 py-4 bg-gradient-to-r from-primary-500 to-cyan-400 
+           text-dark-950 font-bold rounded-xl overflow-hidden
+           transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/30
+           active:scale-95;
+  }
+
+  .btn-primary::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-cyan-400 to-primary-500 
+           opacity-0 transition-opacity duration-300;
+  }
+
+  .btn-primary:hover::before {
+    @apply opacity-100;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl
+           text-white placeholder-white/30 outline-none
+           focus:border-primary-500/50 focus:bg-white/10
+           transition-all duration-300;
+  }
+
+  .card-gradient {
+    background: linear-gradient(135deg, 
+      rgba(6, 182, 212, 0.1) 0%, 
+      rgba(15, 23, 42, 0.8) 50%, 
+      rgba(6, 182, 212, 0.05) 100%);
+  }
+}
+
+@layer utilities {
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+/* Print styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-ticket,
+  .print-ticket * {
+    visibility: visible;
+  }
+
+  .print-ticket {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
